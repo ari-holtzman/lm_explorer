@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<head>
+  <title>Where Do Large Language Models Struggle?</title>
+  <script src="tools/jquery-3.1.1.min.js"></script>
+  <script src="tools/bootstrap.min.js"></script>
+  <script src="tools/nlgWebsite.js"></script>
+  <link rel="stylesheet" href="tools/bootstrap.min.css">
+  <link rel="stylesheet" href="tools/style.css">
+  <link rel="shortcut icon" href="tools/favicon.ico" type="image/x-icon">
+  <link rel="icon" href="tools/favicon.ico" type="image/x-icon">
+</head>
+
+<body>
+	<div class="container">
+		<div class="page-header">
+  		<h1>GPT2 Mega Perplexity</h1>
+  		<h2><small>Where do large LMs struggle?</small></h2>
+  	</div>
+	<div class="row" style="display:None">
+  		<div class="col-sm-12">
+  			<form>
+  				<input id="ppl" type="checkbox" onchange="checkboxes(this)" checked="checked">&nbsp;Perplexity of the Gold
+  				<br>
+  				<input id="ent" type="checkbox" onchange="checkboxes(this)">&nbsp;Entropy of the Vocabulary Distribution
+  			</form>		
+  		</div>
+  	</div>
+	<div class="slidecontainer" style="display: flex">
+		<p style='width: 250px'> Divisor for Heat Map Colors: <span id="rangeDisp"></span></p>
+		<input type="range" min="0" max="7" value="2" class="slider" id="scalingFactor" style="width: 100px">
+		<script>
+			var slider = document.getElementById("scalingFactor");
+			var output = document.getElementById("rangeDisp");
+			output.innerHTML = Math.pow(10, slider.value);
+			
+			slider.oninput = function() {
+				  output.innerHTML = Math.pow(10, this.value);
+			}
+		</script>
+
+	</div>
+
+	<br>
+	Hover over individual wordpieces to see perplexities rounded to the nearest integer.
+	<hr>
+  	<div class="row">
+  		<div class="col-sm-6">
+  			<div id="history" style="font-size:34px"></div>
+  		</div>
+  	</div>
+  	<div class="row">
+  		<div class="col-sm-12">
+  			<textarea id="inputfield" rows="2" cols="100" style="color: grey;font-style: italic;">Enter your text here.</textarea>
+  			<br>
+  			<button class="btn btn-primary" onclick="getResponse()">Submit</button>
+  		</div>
+  	</div>
+  </div>
+</bod>
